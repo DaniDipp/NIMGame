@@ -35,6 +35,7 @@ public class NIMFrame extends JFrame {
 	private boolean[][] buttonStates = {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
 	private boolean[][] oldButtonStates =  {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
 	private boolean[] changedLines = {false, false, false, false};
+	private JButton btnReset;
 	
 	/**
 	 * Launch the application.
@@ -216,8 +217,17 @@ public class NIMFrame extends JFrame {
 				btnEndRoundActionPerformed(e);
 			}
 		});
-		btnEndRound.setBounds(310, 18, 110, 23);
+		btnEndRound.setBounds(303, 18, 110, 50);
 		contentPane.add(btnEndRound);
+		
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnResetActionPerformed(e);
+			}
+		});
+		btnReset.setBounds(10, 18, 110, 50);
+		contentPane.add(btnReset);
 	}
 	
 	
@@ -301,6 +311,71 @@ public class NIMFrame extends JFrame {
 		btn36.setText(buttonStates[3][6] ? "|" : "");
 	}
 	
+	protected void btnResetActionPerformed(ActionEvent e) {
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				if (buttonStates[i][j] != oldButtonStates[i][j]){
+					switch (""+i+j) {
+					case "00":
+						btn00ActionPerformed(e);
+						break;
+						
+					case "10":
+						btn10ActionPerformed(e);
+						break;
+					case "11":
+						btn11ActionPerformed(e);
+						break;
+					case "12":
+						btn12ActionPerformed(e);
+						break;
+						
+					case "20":
+						btn20ActionPerformed(e);
+						break;
+					case "21":
+						btn21ActionPerformed(e);
+						break;
+					case "22":
+						btn22ActionPerformed(e);
+						break;
+					case "23":
+						btn23ActionPerformed(e);
+						break;
+					case "24":
+						btn24ActionPerformed(e);
+						break;
+						
+					case "30":
+						btn30ActionPerformed(e);
+						break;
+					case "31":
+						btn31ActionPerformed(e);
+						break;
+					case "32":
+						btn32ActionPerformed(e);
+						break;
+					case "33":
+						btn33ActionPerformed(e);
+						break;
+					case "34":
+						btn34ActionPerformed(e);
+						break;
+					case "35":
+						btn35ActionPerformed(e);
+						break;
+					case "36":
+						btn36ActionPerformed(e);
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
 	
 	protected void btnEndRoundActionPerformed(ActionEvent e) {
 		if(numberOfChangedlines() == 0){
