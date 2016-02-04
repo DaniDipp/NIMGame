@@ -34,6 +34,7 @@ public class NIMFrame extends JFrame {
 	private JButton btnEndRound;
 	
 	private boolean[][] buttonStates = {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
+	private boolean[][] oldButtonStates =  {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
 	private boolean[] changedLines = {false, false, false, false};
 	
 	/**
@@ -224,25 +225,21 @@ public class NIMFrame extends JFrame {
 	protected void btn00ActionPerformed(ActionEvent e) {
 		buttonStates[0][0] = !buttonStates[0][0];
 		btn00.setText(buttonStates[0][0] ? "|" : "");
-		changedLines[0] = true;
 	}
 	
 	protected void btn10ActionPerformed(ActionEvent e) {
 		buttonStates[1][0] = !buttonStates[1][0];
 		btn10.setText(buttonStates[1][0] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn11ActionPerformed(ActionEvent e) {
 		buttonStates[1][1] = !buttonStates[1][1];
 		btn11.setText(buttonStates[1][1] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn12ActionPerformed(ActionEvent e) {
 		buttonStates[1][2] = !buttonStates[1][2];
 		btn12.setText(buttonStates[1][2] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn20ActionPerformed(ActionEvent e) {
@@ -254,77 +251,67 @@ public class NIMFrame extends JFrame {
 	protected void btn21ActionPerformed(ActionEvent e) {
 		buttonStates[2][1] = !buttonStates[2][1];
 		btn21.setText(buttonStates[2][1] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn22ActionPerformed(ActionEvent e) {
 		buttonStates[2][2] = !buttonStates[2][2];
 		btn22.setText(buttonStates[2][2] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn23ActionPerformed(ActionEvent e) {
 		buttonStates[2][3] = !buttonStates[2][3];
 		btn23.setText(buttonStates[2][3] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn24ActionPerformed(ActionEvent e) {
 		buttonStates[2][4] = !buttonStates[2][4];
 		btn24.setText(buttonStates[2][4] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn30ActionPerformed(ActionEvent e) {
 		buttonStates[3][0] = !buttonStates[3][0];
 		btn30.setText(buttonStates[3][0] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn31ActionPerformed(ActionEvent e) {
 		buttonStates[3][1] = !buttonStates[3][1];
 		btn31.setText(buttonStates[3][1] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn32ActionPerformed(ActionEvent e) {
 		buttonStates[3][2] = !buttonStates[3][2];
 		btn32.setText(buttonStates[3][2] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn33ActionPerformed(ActionEvent e) {
 		buttonStates[3][3] = !buttonStates[3][3];
 		btn33.setText(buttonStates[3][3] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn34ActionPerformed(ActionEvent e) {
 		buttonStates[3][4] = !buttonStates[3][4];
 		btn34.setText(buttonStates[3][4] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn35ActionPerformed(ActionEvent e) {
 		buttonStates[3][5] = !buttonStates[3][5];
 		btn35.setText(buttonStates[3][5] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn36ActionPerformed(ActionEvent e) {
 		buttonStates[3][6] = !buttonStates[3][6];
 		btn36.setText(buttonStates[3][6] ? "|" : "");
-		changedLines[3] = true;
+//		changedLines[3] = true;
 	}
 	
 	
 	protected void btnEndRoundActionPerformed(ActionEvent e) {
-		if(changedlines() == 0){
+		if(numberOfChangedlines() == 0){
 			JOptionPane.showMessageDialog(null,"No moves selected");
 			return;
 		}
 		
-		if(changedlines() > 1){
+		if(numberOfChangedlines() > 1){
 			JOptionPane.showMessageDialog(null, "Don't select strikes in more then one row!");
 			return;
 		}
@@ -350,23 +337,40 @@ public class NIMFrame extends JFrame {
 		btn35.setEnabled(buttonStates[3][5]);
 		btn36.setEnabled(buttonStates[3][6]);
 		
-		resetChangedLinesArray();
+		shiftButtonStates();
 	}
 
-	private void resetChangedLinesArray() {
-		for (int i = 0; i < changedLines.length; i++) {
-			changedLines[i] = false;
-		}
+
+	private int numberOfChangedlines() {
+		int numberOfChangedLines = 0;
+//		for (boolean cl : changedLines) {	//iterates through changedLines[] array
+//			if(cl){							//checks for "true" in changedLines[]
+//				i++;						//adds 1 if changedLines[x] == true
+//			}
+//		}
+//		return numberOfChangedLinnes;		//returns the number of 'true's in changedLines[]
 		
-	}
-
-	private int changedlines() {
-		int i = 0;
-		for (boolean cl : changedLines) {	//iterates through changedLines[] array
-			if(cl){							//checks for "true" in changedLines[]
-				i++;						//adds 1 if changedLines[x] == true
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				if (buttonStates[i][j] != oldButtonStates[i][j]){
+					numberOfChangedLines++;
+					break;
+				}
+				
 			}
 		}
-		return i;							//returns the number of 'true's in changedLines[]
+		return numberOfChangedLines;
+	}
+
+	private void shiftButtonStates() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				oldButtonStates[i][j] = buttonStates[i][j];
+				
+			}
+		}
 	}
 }
