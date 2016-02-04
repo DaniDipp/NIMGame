@@ -1,6 +1,5 @@
 package at.danidipp.nim.client;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -34,7 +33,9 @@ public class NIMFrame extends JFrame {
 	private JButton btnEndRound;
 	
 	private boolean[][] buttonStates = {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
+	private boolean[][] oldButtonStates =  {{true}, {true, true, true}, {true, true, true, true, true}, {true, true, true, true, true, true, true}};
 	private boolean[] changedLines = {false, false, false, false};
+	private JButton btnReset;
 	
 	/**
 	 * Launch the application.
@@ -216,115 +217,173 @@ public class NIMFrame extends JFrame {
 				btnEndRoundActionPerformed(e);
 			}
 		});
-		btnEndRound.setBounds(310, 18, 110, 23);
+		btnEndRound.setBounds(303, 18, 110, 50);
 		contentPane.add(btnEndRound);
+		
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnResetActionPerformed(e);
+			}
+		});
+		btnReset.setBounds(10, 18, 110, 50);
+		contentPane.add(btnReset);
 	}
 	
 	
 	protected void btn00ActionPerformed(ActionEvent e) {
 		buttonStates[0][0] = !buttonStates[0][0];
 		btn00.setText(buttonStates[0][0] ? "|" : "");
-		changedLines[0] = true;
 	}
 	
 	protected void btn10ActionPerformed(ActionEvent e) {
 		buttonStates[1][0] = !buttonStates[1][0];
 		btn10.setText(buttonStates[1][0] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn11ActionPerformed(ActionEvent e) {
 		buttonStates[1][1] = !buttonStates[1][1];
 		btn11.setText(buttonStates[1][1] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn12ActionPerformed(ActionEvent e) {
 		buttonStates[1][2] = !buttonStates[1][2];
 		btn12.setText(buttonStates[1][2] ? "|" : "");
-		changedLines[1] = true;
 	}
 	
 	protected void btn20ActionPerformed(ActionEvent e) {
 		buttonStates[2][0] = !buttonStates[2][0];
 		btn20.setText(buttonStates[2][0] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn21ActionPerformed(ActionEvent e) {
 		buttonStates[2][1] = !buttonStates[2][1];
 		btn21.setText(buttonStates[2][1] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn22ActionPerformed(ActionEvent e) {
 		buttonStates[2][2] = !buttonStates[2][2];
 		btn22.setText(buttonStates[2][2] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn23ActionPerformed(ActionEvent e) {
 		buttonStates[2][3] = !buttonStates[2][3];
 		btn23.setText(buttonStates[2][3] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn24ActionPerformed(ActionEvent e) {
 		buttonStates[2][4] = !buttonStates[2][4];
 		btn24.setText(buttonStates[2][4] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn30ActionPerformed(ActionEvent e) {
 		buttonStates[3][0] = !buttonStates[3][0];
 		btn30.setText(buttonStates[3][0] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn31ActionPerformed(ActionEvent e) {
 		buttonStates[3][1] = !buttonStates[3][1];
 		btn31.setText(buttonStates[3][1] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn32ActionPerformed(ActionEvent e) {
 		buttonStates[3][2] = !buttonStates[3][2];
 		btn32.setText(buttonStates[3][2] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn33ActionPerformed(ActionEvent e) {
 		buttonStates[3][3] = !buttonStates[3][3];
 		btn33.setText(buttonStates[3][3] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn34ActionPerformed(ActionEvent e) {
 		buttonStates[3][4] = !buttonStates[3][4];
 		btn34.setText(buttonStates[3][4] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn35ActionPerformed(ActionEvent e) {
 		buttonStates[3][5] = !buttonStates[3][5];
 		btn35.setText(buttonStates[3][5] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
 	protected void btn36ActionPerformed(ActionEvent e) {
 		buttonStates[3][6] = !buttonStates[3][6];
 		btn36.setText(buttonStates[3][6] ? "|" : "");
-		changedLines[3] = true;
 	}
 	
+	protected void btnResetActionPerformed(ActionEvent e) {
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				if (buttonStates[i][j] != oldButtonStates[i][j]){
+					switch (""+i+j) {
+					case "00":
+						btn00ActionPerformed(e);
+						break;
+						
+					case "10":
+						btn10ActionPerformed(e);
+						break;
+					case "11":
+						btn11ActionPerformed(e);
+						break;
+					case "12":
+						btn12ActionPerformed(e);
+						break;
+						
+					case "20":
+						btn20ActionPerformed(e);
+						break;
+					case "21":
+						btn21ActionPerformed(e);
+						break;
+					case "22":
+						btn22ActionPerformed(e);
+						break;
+					case "23":
+						btn23ActionPerformed(e);
+						break;
+					case "24":
+						btn24ActionPerformed(e);
+						break;
+						
+					case "30":
+						btn30ActionPerformed(e);
+						break;
+					case "31":
+						btn31ActionPerformed(e);
+						break;
+					case "32":
+						btn32ActionPerformed(e);
+						break;
+					case "33":
+						btn33ActionPerformed(e);
+						break;
+					case "34":
+						btn34ActionPerformed(e);
+						break;
+					case "35":
+						btn35ActionPerformed(e);
+						break;
+					case "36":
+						btn36ActionPerformed(e);
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
 	
 	protected void btnEndRoundActionPerformed(ActionEvent e) {
-		if(changedlines() == 0){
+		if(numberOfChangedlines() == 0){
 			JOptionPane.showMessageDialog(null,"No moves selected");
 			return;
 		}
 		
-		if(changedlines() > 1){
+		if(numberOfChangedlines() > 1){
 			JOptionPane.showMessageDialog(null, "Don't select strikes in more then one row!");
 			return;
 		}
@@ -350,23 +409,32 @@ public class NIMFrame extends JFrame {
 		btn35.setEnabled(buttonStates[3][5]);
 		btn36.setEnabled(buttonStates[3][6]);
 		
-		resetChangedLinesArray();
+		shiftButtonStates();
 	}
 
-	private void resetChangedLinesArray() {
-		for (boolean cl : changedLines) {
-			changedLines[i] = false;
-		}
-		
-	}
 
-	private int changedlines() {
-		int i = 0;
-		for (boolean cl : changedLines) {	//iterates through changedLines[] array
-			if(cl){							//checks for "true" in changedLines[]
-				i++;						//adds 1 if changedLines[x] == true
+	private int numberOfChangedlines() { //counts lines with changed buttons
+		int numberOfChangedLines = 0;
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				if (buttonStates[i][j] != oldButtonStates[i][j]){
+					numberOfChangedLines++;
+					break;
+				}
+				
 			}
 		}
-		return i;							//returns the number of 'true's in changedLines[]
+		return numberOfChangedLines;
+	}
+
+	private void shiftButtonStates() { //Replaces old button states with current ones.
+		for (int i = 0; i < buttonStates.length; i++) {
+			for (int j = 0; j < buttonStates[i].length; j++) {
+				
+				oldButtonStates[i][j] = buttonStates[i][j];
+				
+			}
+		}
 	}
 }
