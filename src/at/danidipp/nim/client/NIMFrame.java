@@ -354,7 +354,7 @@ public class NIMFrame extends JFrame {
 	}
 
 	private void resetChangedLinesArray() {
-		for (boolean cl : changedLines) {
+		for (int i = 0; i < changedLines.length; i++) {
 			changedLines[i] = false;
 		}
 		
