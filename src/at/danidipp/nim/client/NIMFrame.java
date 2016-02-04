@@ -1,6 +1,5 @@
 package at.danidipp.nim.client;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -245,7 +244,6 @@ public class NIMFrame extends JFrame {
 	protected void btn20ActionPerformed(ActionEvent e) {
 		buttonStates[2][0] = !buttonStates[2][0];
 		btn20.setText(buttonStates[2][0] ? "|" : "");
-		changedLines[2] = true;
 	}
 	
 	protected void btn21ActionPerformed(ActionEvent e) {
@@ -301,7 +299,6 @@ public class NIMFrame extends JFrame {
 	protected void btn36ActionPerformed(ActionEvent e) {
 		buttonStates[3][6] = !buttonStates[3][6];
 		btn36.setText(buttonStates[3][6] ? "|" : "");
-//		changedLines[3] = true;
 	}
 	
 	
@@ -341,15 +338,8 @@ public class NIMFrame extends JFrame {
 	}
 
 
-	private int numberOfChangedlines() {
+	private int numberOfChangedlines() { //counts lines with changed buttons
 		int numberOfChangedLines = 0;
-//		for (boolean cl : changedLines) {	//iterates through changedLines[] array
-//			if(cl){							//checks for "true" in changedLines[]
-//				i++;						//adds 1 if changedLines[x] == true
-//			}
-//		}
-//		return numberOfChangedLinnes;		//returns the number of 'true's in changedLines[]
-		
 		for (int i = 0; i < buttonStates.length; i++) {
 			for (int j = 0; j < buttonStates[i].length; j++) {
 				
@@ -363,8 +353,7 @@ public class NIMFrame extends JFrame {
 		return numberOfChangedLines;
 	}
 
-	private void shiftButtonStates() {
-		// TODO Auto-generated method stub
+	private void shiftButtonStates() { //Replaces old button states with current ones.
 		for (int i = 0; i < buttonStates.length; i++) {
 			for (int j = 0; j < buttonStates[i].length; j++) {
 				
